@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Penjualan;
 use App\PenjualanStok;
 use App\Stok;
+date_default_timezone_set('Asia/Makassar');
 
 class PenjualanController extends Controller
 {
     public function store(Request $request)
     {
+        
         $data = new Penjualan;
         $data->total = $request->totalbelanja;
         $data->save();

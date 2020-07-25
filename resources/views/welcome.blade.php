@@ -15,7 +15,6 @@
                 </div>
             </div>
             <br>
-            
         </div>
         <div class="col-md">
             <!-- Modal Input Jumlah Item -->
