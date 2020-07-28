@@ -49,8 +49,8 @@ class PenjualanController extends Controller
         }
         $printer = new ReceiptPrinter;
         $printer->init(
-            config('receiptprinter.connector_type'),
-            config('receiptprinter.connector_descriptor')
+            config('receiptprinter.windows'),
+            config('receiptprinter.windows')
         );
         $printer->setStore($mid, $store_name, $store_address, $store_phone, $store_email, $store_website);
         // Add items
