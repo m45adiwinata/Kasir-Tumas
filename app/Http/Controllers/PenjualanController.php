@@ -40,34 +40,35 @@ class PenjualanController extends Controller
             ]);
             $barang = Stok::find($bt);
             array_push($items, [
-                'nama_barang' => $barang->nama_barang,
-                'jumlah' => $request->jumlah[$key],
-                'harga' => $request->harga[$key],
-                'total' => $request->total[$key]
+                'name' => $barang->nama_barang,
+                'qty' => $request->jumlah[$key],
+                'price' => $request->harga[$key],
             ]);
             // $stok->jml_stok -= intval($request->jumlah[$key]);
         }
         $printer = new ReceiptPrinter;
         $printer->init(
-            config('receiptprinter.windows'),
-            config('receiptprinter.windows')
+            config('receiptprinter.connector_type'),
+            config('receiptprinter.connector_descriptor')
         );
         $printer->setStore($mid, $store_name, $store_address, $store_phone, $store_email, $store_website);
         // Add items
         foreach ($items as $item) {
             $printer->addItem(
-                $item['nama_barang'],
-                $item['jumlah'],
-                $item['harga'],
-                $item['total']
+                $item['name'],
+                $item['qty'],
+                $item['price']
             );
         }
+        // Set tax
+        $printer->setTax($tax_percentage);
         // Calculate total
         $printer->calculateSubTotal();
         $printer->calculateGrandTotal();
 
         $printer->printReceipt();
-
+        // dd($printer);
+        
         return redirect('/');
     }
 }

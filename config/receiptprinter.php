@@ -19,7 +19,7 @@ return [
     | Typically printer name or IP address.
     |
     */
-    'connector_descriptor' => '',
+    'connector_descriptor' => 'BIXOLON SRP-275',
     /*
     |--------------------------------------------------------------------------
     | Printer port
