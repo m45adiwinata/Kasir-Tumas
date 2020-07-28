@@ -66,6 +66,8 @@ class PenjualanController extends Controller
         $printer->calculateSubTotal();
         $printer->calculateGrandTotal();
 
+        $printer->printReceipt();
+
         return redirect('/');
     }
 }
