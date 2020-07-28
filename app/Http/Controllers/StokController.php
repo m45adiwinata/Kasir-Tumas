@@ -46,7 +46,6 @@ class StokController extends Controller
         $data->satuan_ecer = $request->satuan_ecer;
         $data->isi = $request->isi;
         $data->h_pokok = $request->h_pokok;
-        $data->h_pokok_ecer = $request->h_pokok/$request->isi;
         $data->h_grosir = $request->h_grosir;
         $data->h_ecer = $request->h_ecer;
         $data->tgl_beli = $request->tgl_beli;
@@ -129,6 +128,7 @@ class StokController extends Controller
             'satuan_ecer' => $request->satuan_ecer,
             'isi' => $request->isi,
             'h_pokok' => $request->h_pokok,
+            'h_grosir' => $request->h_grosir,
             'h_ecer' => $request->h_ecer,
             'tgl_beli' => $request->tgl_beli,
             'jml_stok' => $request->jml_stok,

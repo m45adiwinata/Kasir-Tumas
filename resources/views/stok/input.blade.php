@@ -146,19 +146,6 @@
         $('#satuan_ecer').change(function() {
             $('#lbl-satuan-ecer').html('('+$(this).val()+')');
         });
-        // $('#submit').click(function() {
-        //     var fd = new FormData();
-        //     fd.append('barcode', $('#barcode').val());
-        //     // let barcode = $('#barcode').val();
-        //     let kode = $('#kode').val();
-        //     let nama_barang = $('#nama_barang').val();
-        //     let kategori = $('#kategori').val();
-        //     let suplier = $('#suplier').val();
-        //     let tgl_beli = $('#tgl_beli').val();
-        //     $.post('/stok/masuk/'+fd, function(data) {
-        //         console.log(data);
-        //     });
-        // });
     });
 </script>
 @endsection

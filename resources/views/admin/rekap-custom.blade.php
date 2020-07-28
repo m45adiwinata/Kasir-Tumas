@@ -23,8 +23,27 @@
         </tbody>
 	</table>
     <br>
-    <button class="btn btn-prime" id="detail-barang">Detail Barang</button>
-    <table class="table table-hover table-bordered" style="font-size:18px;" id="tbl-detail-barang"></table>
+    <!-- <button class="btn btn-prime" id="detail-barang">Detail Barang</button> -->
+    <table class="table table-hover table-bordered" style="font-size:18px;" id="tbl-detail-barang">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Barcode</th>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Terjual</th>
+                <th scope="col">Sisa Stok</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($barangs as $barang)
+            <tr>
+                <td>{{$barang['barcode']}}</td>
+                <td>{{$barang['nama_barang']}}</td>
+                <td>{{$barang['terjual']}}</td>
+                <td>{{$barang['sisa_stok']}}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </div>
 @endsection
 @section('script')
@@ -47,13 +66,14 @@
                     '</thead>'+
                     '<tbody id="tbody-detail-barang"></tbody>'
                 );
-                $(data).each(function(index, element) {
+                // console.log("hello");
+                data.forEach(function(element) {
                     $('#tbody-detail-barang').append(
                         '<tr>'+
-                            '<td>'+element.barcode+'</td>'+
-                            '<td>'+element.nama_barang+'</td>'+
-                            '<td>'+element.terjual+'</td>'+
-                            '<td>'+element.sisa_stok+'</td>'+
+                            '<td>'+element['barcode']+'</td>'+
+                            '<td>'+element['nama_barang']+'</td>'+
+                            '<td>'+element['terjual']+'</td>'+
+                            '<td>'+element['sisa_stok']+'</td>'+
                         '</tr>'
                     );
                 });

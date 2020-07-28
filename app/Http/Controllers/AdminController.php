@@ -48,11 +48,27 @@ class AdminController extends Controller
         $data['tgl2'] = $request->tgl2;
         $total_cash = 0;
         $total_laba = 0;
+        $data['barangs'] = [];
         foreach ($data['penjualans'] as $key => $p) {
             $total_cash += $p->total;
             foreach ($p->penjualanStok()->get() as $key2 => $ps) {
                 $barang = $ps->stok()->first();
                 $total_laba += $ps->jumlah * ($ps->harga - $barang->h_pokok);
+                $found = false;
+                for ($i=0; $i < count($data['barangs']); $i++) { 
+                    if ($data['barangs'][$i]['barcode'] == $ps->stok_barcode) {
+                        $found = true;
+                        $data['barangs'][$i]['terjual'] += $ps->jumlah;
+                    }
+                }
+                if ($found == false) {
+                    array_push($data['barangs'], [
+                        'barcode' => $ps->stok_barcode,
+                        'nama_barang' => $ps->stok()->first()->nama_barang,
+                        'terjual' => $ps->jumlah,
+                        'sisa_stok' => $ps->stok()->first()->jml_stok
+                    ]);
+                }
             }
         }
         $data['total_cash'] = number_format($total_cash, 2, ',', '.');
