@@ -25,4 +25,6 @@ Route::get('/stok/update/{barcode}', 'StokController@update2');
 Route::get('/stok/get-by-nama/{nama}', 'StokController@getByNama');
 Route::resource('/penjualan', PenjualanController::class);
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin/rekap/{tgl1}/{tgl2}', 'AdminController@rekapHarian');
+Route::get('/admin/rekap', 'AdminController@rekapHarian');
+Route::post('/admin/rekap-custom', 'AdminController@rekapCustom')->name('admin.rekapCustom');
+Route::get('/admin/get-detail-barang/{tgl1}/{tgl2}', 'AdminController@getDetailBarang');
