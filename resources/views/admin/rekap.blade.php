@@ -15,8 +15,8 @@
             <tr>
                 <td>{{$tgl}}</td>
                 <td>{{count($penjualans)}}</td>
-                <td>{{$total_cash}}</td>
-                <td>{{$total_laba}}</td>
+                <td>Rp {{number_format($total_cash, 2, ',', '.')}}</td>
+                <td>{{number_format($total_laba, 2, ',', '.')}}</td>
             </tr>
         </tbody>
 	</table>
