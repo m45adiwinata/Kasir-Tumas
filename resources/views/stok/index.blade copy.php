@@ -2,7 +2,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <a href="#">Tambah/Edit Data</a>
+        <div class="col-md">
+            <a href="#">Tambah/Edit Data</a>
+            <input type="text" name="search" id="search">
+            <button id="search-btn">Cari</button>
+        </div>
     </div>
     <div style="overflow-x:auto;">
         <table class="table table-hover table-bordered" style="font-size:14px;">

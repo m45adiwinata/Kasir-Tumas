@@ -92,20 +92,20 @@
                 </div>
             </div>
             <!-- End Modal -->
-            <div style="height:70vh;overflow:auto;">
+            <div style="height:60vh;overflow:auto;">
                 <table id="pembelian" >
                     <tr>
                         <th>Nama Barang</th>
                         <th>Jumlah</th>
-                        <th>H. Satuan</th>
+                        <th>Harga Satuan</th>
                         <th>Total</th>
                         <th></th>
                     </tr>
                 </table>
             </div>
-            Total Belanja <span class="float-right mx-1-right" id="totalbelanja"></span>
+            <p style="font-size:30px;">Total Belanja</p> <span class="float-right mx-1-right" id="totalbelanja" style="font-size:30px;"></span>
             <br>
-            <button type="submit" id="bayar" class="btn btn-success mb-2 float-right">BAYAR</button>
+            <button type="submit" id="bayar" class="btn btn-success mb-2 float-right" style="width:150px; height:55px; font-size:25px;">BAYAR</button>
             <form action="{{route('penjualan.store')}}" method="POST" style="display:none;" id="invisible-form">
                 @csrf
                 

@@ -12,7 +12,10 @@
         {{ session()->get('danger') }}
     </div>
     @endif
-    <a class="btn btn-primary float-md-left" href="/stok/create">Tambah/Edit Data</a><br><br>
+    <a class="btn btn-primary float-md-left" style="margin-right:20px;" href="/stok/create">Tambah/Edit Data</a>
+    <input type="text" name="search" id="search">
+    <button id="search-btn">Cari</button>
+    <br><br>
     <div style="width: 60vw; height:600px; overflow-x:auto;">
         <table class="table table-hover table-bordered text-left" style="font-size:14px;">
             <thead class="thead-dark">
@@ -35,7 +38,7 @@
             <tbody>
                 @foreach($stoks as $key => $stok)
                 <tr>
-                    <td>{{$key+1}}</td>
+                    <td>{{50 * ($stoks->currentPage()-1) + $key + 1}}</td>
                     <td>{{$stok->barcode}}</td>
                     <td>{{$stok->kode}}</td>
                     <td>{{$stok->nama_barang}}</td>
@@ -55,4 +58,40 @@
     </div>
     {{ $stoks->links() }}
 </div>
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function() {
+        @if($search)
+        $('#search').val('{!! $search !!}');
+        @endif
+        $('#search-btn').click(function() {
+            window.location.href = '/stok/search/' + $('#search').val();
+        });
+        $('#search').keypress(function (e) {
+            if (e.keyCode == 13) {
+                window.location.href = '/stok/search/' + $(this).val();
+            }
+            else {
+                var selectedText = '';
+                if (document.getSelection) { 
+                    selectedText = document.getSelection().toString(); 
+                }
+                if (selectedText.length > 0) {
+                    e.target.value = e.key;
+                }
+                else {
+                    e.target.value += e.key;
+                }
+            }
+            e.preventDefault();
+            return false;
+        });
+        $("#search").on('focus', function() { 
+            $(this).select();
+        });
+    });
+</script>
 @endsection

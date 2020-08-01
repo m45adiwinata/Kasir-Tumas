@@ -15,6 +15,7 @@ class StokController extends Controller
     public function index()
     {
         $data['stoks'] = Stok::orderBy('nama_barang')->paginate(50);
+        $data['search'] = null;
         return view('stok.index', $data);
     }
 
@@ -153,5 +154,12 @@ class StokController extends Controller
         $data = Stok::pluck('nama_barang', 'barcode');
 
         return $data;
+    }
+
+    public function search($nama_barang)
+    {
+        $data['stoks'] = Stok::where('nama_barang', 'LIKE', '%'.$nama_barang.'%')->orderBy('nama_barang')->paginate(50);
+        $data['search'] = $nama_barang;
+        return view('stok.index', $data);
     }
 }
