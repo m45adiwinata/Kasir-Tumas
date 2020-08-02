@@ -29,12 +29,13 @@
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="images/img-01.png" alt="IMG">
 				</div>
-				@if(session()->get('fail'))
-				<div class="alert alert-danger">
-					{{ session()->get('fail') }}  
-				</div>
-				@endif
+				
 				<form class="login100-form validate-form" action="login" method="POST">
+					@if(session()->get('fail'))
+					<div class="alert alert-danger">
+						{{ session()->get('fail') }}  
+					</div>
+					@endif
 					@csrf
 					<span class="login100-form-title">
 						Member Login

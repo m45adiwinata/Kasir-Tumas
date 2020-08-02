@@ -14,9 +14,6 @@ class WelcomeController extends Controller
     	if (!Auth::check()) {
     		return redirect('login');
     	}
-        // $data['stoks'] = Stok::orderBy('nama_barang')->get();
-        
-        // return view('welcome', $data);
         return view('welcome');
     }
 

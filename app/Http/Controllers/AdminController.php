@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DateTime;
 use DatePeriod;
 use App\Penjualan;
+use Auth;
+use App\User;
 
 date_default_timezone_set('Asia/Makassar');
 
@@ -13,11 +15,17 @@ class AdminController extends Controller
 {
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         return view('admin.index');
     }
 
     public function rekapHarian()
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
     	$data['penjualans'] = Penjualan::whereDate('created_at', date('Y-m-d'))->get();
         $data['tgl'] = date('Y-m-d');
 
@@ -39,6 +47,9 @@ class AdminController extends Controller
 
     public function rekapCustom(Request $request)
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         $tgl1 = $request->tgl1;
         $tgl2 = $request->tgl2;
         $tgl2 = new DateTime($tgl2);
@@ -136,5 +147,23 @@ class AdminController extends Controller
         }
 
         return json_encode($data);
+    }
+
+    public function gantiPassword(Request $request)
+    {
+        $user = Auth::user();
+        if(md5($request->password_lama) != $user->password) {
+            return redirect('admin')->with('fail', 'Password lama tidak sesuai atau salah.');
+        }
+        $user->update(['password' => md5($request->password_baru)]);
+
+        return redirect('admin');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('login');
     }
 }

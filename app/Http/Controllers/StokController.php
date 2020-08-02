@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Stok;
 use Illuminate\Http\Request;
+use Auth;
 
 class StokController extends Controller
 {
@@ -14,6 +15,9 @@ class StokController extends Controller
      */
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         $data['stoks'] = Stok::orderBy('nama_barang')->paginate(50);
         $data['search'] = null;
         return view('stok.index', $data);
@@ -26,6 +30,9 @@ class StokController extends Controller
      */
     public function create()
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         return view('stok.input');
     }
 
@@ -158,6 +165,9 @@ class StokController extends Controller
 
     public function search($nama_barang)
     {
+        if (!Auth::check()) {
+            return redirect('login');
+        }
         $data['stoks'] = Stok::where('nama_barang', 'LIKE', '%'.$nama_barang.'%')->orderBy('nama_barang')->paginate(50);
         $data['search'] = $nama_barang;
         return view('stok.index', $data);
