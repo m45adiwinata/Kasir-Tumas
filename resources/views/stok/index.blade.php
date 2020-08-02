@@ -13,7 +13,7 @@
     </div>
     @endif
     <a class="btn btn-primary float-md-left" style="margin-right:20px;" href="/stok/create">Tambah/Edit Data</a>
-    <input type="text" name="search" id="search">
+    <input type="text" name="search" id="search" autocomplete="off">
     <button id="search-btn">Cari</button>
     <br><br>
     <div style="width: 60vw; height:600px; overflow-x:auto;">

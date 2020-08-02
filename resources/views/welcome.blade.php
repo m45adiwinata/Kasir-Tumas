@@ -103,7 +103,7 @@
                     </tr>
                 </table>
             </div>
-            <p style="font-size:30px;">Total Belanja</p> <span class="float-right mx-1-right" id="totalbelanja" style="font-size:30px;"></span>
+            <span style="font-size:30px;">Total Belanja</span> <span class="float-right mx-1-right" id="totalbelanja" style="font-size:30px;"></span>
             <br>
             <button type="submit" id="bayar" class="btn btn-success mb-2 float-right" style="width:150px; height:55px; font-size:25px;">BAYAR</button>
             <form action="{{route('penjualan.store')}}" method="POST" style="display:none;" id="invisible-form">
@@ -143,6 +143,7 @@
         });
         $('#modalJumlah').on('shown.bs.modal', function() {
             $('#jumlah').focus();
+
         });
         $('#modalTerimaUang').on('shown.bs.modal', function() {
             $('#uang').focus();
@@ -160,6 +161,10 @@
                     else {
                         $('#modalJmlNamaBarang').html(data.nama_barang);
                         $('#modalJumlah').modal('toggle');
+                        $('#jumlah').attr('max', data.jml_stok);
+                        if(data.jml_stok <= data.stok_min) {
+                            alert("Stok barang sudah mencapai jumlah minimum ("+data.jml_stok+")");
+                        }
                     }
                 });
             }
@@ -181,6 +186,9 @@
                 $.get('/stok/get-data/' + $('#barcode').val(), function(data) {
                     if(data == "tidak ada") {
                         alert("DATA BARANG TIDAK DITEMUKAN.");
+                    }
+                    else if($('#jumlah').val() > data.jml_stok) {
+                        alert("JUMLAH ORDER LEBIH DARI JUMLAH STOK.");
                     }
                     else {
                         if ($('#checkbox-grosir:checked')[0]) {
