@@ -7,7 +7,7 @@
             <div class="form-inline">
                 <div class="form-group mx-sm-4 mb-2">
                     <!-- <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="email@example.com"> -->
-                    <input type="text" class="form-control" name="barcode" id="barcode" placeholder="barcode..." autofocus>
+                    <input type="text" class="form-control" name="barcode" id="barcode" placeholder="barcode..." autofocus autocomplete="off">
                 </div>
                 <div class="form-group mb-2">
                     <select name="nama_barang" id="nama_barang" style="width:20vw;"></select>
@@ -179,6 +179,12 @@
             if ($('#nama_barang').select2('data')[0]) {
                 $('#modalJmlNamaBarang').html($('#nama_barang').select2('data')[0]['text']);
             }
+            $.get('/stok/get-data/' + $('#barcode').val(), function(data) {
+                $('#jumlah').attr('max', data.jml_stok);
+                if(data.jml_stok <= data.stok_min) {
+                    alert("Stok barang sudah mencapai jumlah minimum ("+data.jml_stok+")");
+                }
+            });
             $('#modalJumlah').modal('toggle');
         });
         $('#jumlah').keypress(function (e) {
@@ -188,7 +194,7 @@
                         alert("DATA BARANG TIDAK DITEMUKAN.");
                     }
                     else if($('#jumlah').val() > data.jml_stok) {
-                        alert("JUMLAH ORDER LEBIH DARI JUMLAH STOK.");
+                        alert("JUMLAH ORDER LEBIH DARI JUMLAH STOK ("+data.jml_stok+").");
                     }
                     else {
                         if ($('#checkbox-grosir:checked')[0]) {
