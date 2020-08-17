@@ -18,24 +18,23 @@ class PenjualanController extends Controller
         $data->save();
         $items = [];
         foreach ($request->barcode as $key => $bt) {
+            $stok = Stok::find($bt);
             $terjual = new PenjualanStok;
             $terjual->stok_barcode = $bt;
             $terjual->jumlah = $request->jumlah[$key];
             $terjual->harga = $request->harga[$key];
+            $terjual->harga_pokok = $stok->h_pokok;
             $terjual->total = $request->total[$key];
             $data->penjualanStok()->save($terjual);
-            $stok = Stok::find($bt);
             $sisa_stok = $stok->jml_stok - intval($request->jumlah[$key]);
             $stok->update([
                 'jml_stok' => $sisa_stok
             ]);
-            $barang = Stok::find($bt);
             array_push($items, [
-                'name' => $barang->nama_barang,
+                'name' => $stok->nama_barang,
                 'qty' => $request->jumlah[$key],
                 'price' => $request->harga[$key],
             ]);
-            // $stok->jml_stok -= intval($request->jumlah[$key]);
         }
 
         $mid = date('d/m/Y H:i:s');
@@ -61,7 +60,7 @@ class PenjualanController extends Controller
             );
         }
 		$printer->setTransactionID($transaction_id);
-$printer->setKembalian($request->uang, $request->uang - $request->totalbelanja);
+        $printer->setKembalian($request->uang, $request->uang - $request->totalbelanja);
         // Set tax
         $printer->setTax($tax_percentage);
         // Calculate total

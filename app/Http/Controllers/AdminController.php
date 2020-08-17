@@ -34,8 +34,7 @@ class AdminController extends Controller
     	foreach ($data['penjualans'] as $key => $p) {
             $total_cash += $p->total;
             foreach ($p->penjualanStok()->get() as $key2 => $ps) {
-                $barang = $ps->stok()->first();
-                $total_laba += $ps->jumlah * ($ps->harga - $barang->h_pokok);
+                $total_laba += $ps->jumlah * ($ps->harga - $ps->harga_pokok);
             }
 
         }
@@ -63,8 +62,7 @@ class AdminController extends Controller
         foreach ($data['penjualans'] as $key => $p) {
             $total_cash += $p->total;
             foreach ($p->penjualanStok()->get() as $key2 => $ps) {
-                $barang = $ps->stok()->first();
-                $total_laba += $ps->jumlah * ($ps->harga - $barang->h_pokok);
+                $total_laba += $ps->jumlah * ($ps->harga - $ps->harga_pokok);
                 $found = false;
                 for ($i=0; $i < count($data['barangs']); $i++) { 
                     if ($data['barangs'][$i]['barcode'] == $ps->stok_barcode) {
@@ -105,8 +103,7 @@ class AdminController extends Controller
             foreach ($penjualan as $key => $p) {
                 $total_cash += $p->total;
                 foreach ($p->penjualanStok()->get() as $key => $ps) {
-                    $barang = $ps->stok()->first();
-                    $total_laba += $ps->jumlah * ($ps->harga - $barang->h_pokok);
+                    $total_laba += $ps->jumlah * ($ps->harga - $ps->harga_pokok);
                 }
             }
             array_push($data['penjualans'], [
