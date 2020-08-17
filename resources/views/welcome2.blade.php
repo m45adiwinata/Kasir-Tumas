@@ -119,7 +119,7 @@
     var id = 1;
     var belanjaan = [];
     var deletingId = null;
-    var totalbelanja = 0;
+	var temp_uang;
     $(document).ready(function(){
         // $('#uang').simpleMoneyFormat();
         $('#nama_barang').select2({
@@ -143,6 +143,7 @@
         });
         $('#modalJumlah').on('shown.bs.modal', function() {
             $('#jumlah').focus();
+
         });
         $('#modalTerimaUang').on('shown.bs.modal', function() {
             $('#uang').focus();
@@ -272,6 +273,7 @@
         });
         $('#uang').keypress(function(e) {
             if (e.keyCode == 13) {
+			temp_uang = $('#uang').val();
                 $('#kembalian').val($('#uang').val() - totalbelanja);
                 $('#modalKembalian').modal('toggle');
             }
@@ -301,14 +303,16 @@
         });
         $('#btn-selesai').click(function() {
             $( "#invisible-form").append('<input type="hidden" name="totalbelanja" value="'+totalbelanja+'">');
-		$( "#invisible-form").append('<input type="hidden" name="uang" value="'+ $('#uang').val() +'">');
+		 $( "#invisible-form").append('<input type="hidden" name="uang" value="'+ $('#uang').val() +'">');
             $( "#invisible-form").submit();
         });
     });
+
     function toggleDelModal(id) {
         deletingId = id;
         $('#modalConfirmHapus').modal('toggle');
     }
+
     function delPembelian() {
         $('#row-'+deletingId).remove();
         $('#invis-row-'+deletingId).remove();
@@ -320,20 +324,24 @@
         belanjaan.splice(deletedIdx, 1);
         deletingId = null;
     }
+
     function formatRupiah(angka, prefix){
         var number_string = angka.replace(/[^,\d]/g, '').toString(),
         split   		= number_string.split(','),
         sisa     		= split[0].length % 3,
         rupiah     		= split[0].substr(0, sisa),
         ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
         // tambahkan titik jika yang di input sudah menjadi angka ribuan
         if(ribuan){
             separator = sisa ? '.' : '';
             rupiah += separator + ribuan.join('.');
         }
+
         rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
         return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
+
     function isTextSelected(input) {
         if (typeof input.selectionStart == "number") {
             return input.selectionStart == 0 && input.selectionEnd == input.value.length;

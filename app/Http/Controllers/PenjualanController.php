@@ -38,14 +38,14 @@ class PenjualanController extends Controller
             // $stok->jml_stok -= intval($request->jumlah[$key]);
         }
 
-        $mid = '123123456';
-        $store_name = 'TOKO SURADNYA GROSIR';
-        $store_address = 'Jl. Seririt - Gilimanuk, Banjar Asem Dajan Rurung';
+        $mid = date('d/m/Y H:i:s');
+        $store_name = 'TOKO SURADNYA';
+        $store_address = 'Jl. Seririt - Gilimanuk,';
         $store_phone = 'Telp: 081 338 606 207, WA. 081 916 147 145';
         $store_email = '';
         $store_website = '';
         $tax_percentage = 0;
-        $transaction_id = 'TX123ABC456';
+        $transaction_id = 'TX'.$data->id;
         $printer = new ReceiptPrinter;
         $printer->init(
             config('receiptprinter.connector_type'),
@@ -60,6 +60,8 @@ class PenjualanController extends Controller
                 $item['price']
             );
         }
+		$printer->setTransactionID($transaction_id);
+$printer->setKembalian($request->uang, $request->uang - $request->totalbelanja);
         // Set tax
         $printer->setTax($tax_percentage);
         // Calculate total
