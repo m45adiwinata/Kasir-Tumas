@@ -96,6 +96,7 @@
                 <table id="pembelian" >
                     <tr>
                         <th>Nama Barang</th>
+                        <th>Grosir</th>
                         <th>Jumlah</th>
                         <th>Harga Satuan</th>
                         <th>Total</th>
@@ -200,6 +201,7 @@
                             $('#pembelian').append(
                                 '<tr id="row-'+id+'">'+
                                 '<td>'+data.nama_barang+'</td>'+
+                                '<td><i class="fa fa-check-square"></i></td>'+
                                 '<td>'+$('#jumlah').val()+'</td>'+
                                 '<td>'+data.h_grosir+'</td>'+
                                 '<td>'+($('#jumlah').val() * data.h_grosir)+'</td>'+
@@ -210,6 +212,7 @@
                                 '<div id="invis-row-'+id+'">'+
                                     '<input type="text" name="barcode['+id+']" value="'+data.barcode+'">'+
                                     '<input type="number" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
+                                    '<input type="number" name="grosir['+id+']" value="1">'+
                                     '<input type="number" name="harga['+id+']" value="'+data.h_grosir+'">'+
                                     '<input type="number" name="total['+id+']" value="'+($('#jumlah').val() * data.h_grosir)+'">'+
                                 '</div>'
@@ -225,6 +228,7 @@
                             $('#pembelian').append(
                                 '<tr id="row-'+id+'">'+
                                 '<td>'+data.nama_barang+'</td>'+
+                                '<td><i class="fa fa-times-circle"></i></td>'+
                                 '<td>'+$('#jumlah').val()+'</td>'+
                                 '<td>'+data.h_ecer+'</td>'+
                                 '<td>'+($('#jumlah').val() * data.h_ecer)+'</td>'+
@@ -235,6 +239,7 @@
                                 '<div id="invis-row-'+id+'">'+
                                     '<input type="text" name="barcode['+id+']" value="'+data.barcode+'">'+
                                     '<input type="number" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
+                                    '<input type="number" name="grosir['+id+']" value="0">'+
                                     '<input type="number" name="harga['+id+']" value="'+data.h_ecer+'">'+
                                     '<input type="number" name="total['+id+']" value="'+($('#jumlah').val() * data.h_ecer)+'">'+
                                 '</div>'

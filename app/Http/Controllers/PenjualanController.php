@@ -22,6 +22,7 @@ class PenjualanController extends Controller
             $terjual = new PenjualanStok;
             $terjual->stok_barcode = $bt;
             $terjual->jumlah = $request->jumlah[$key];
+            $terjual->grosir = $request->grosir[$key];
             $terjual->harga = $request->harga[$key];
             $terjual->harga_pokok = $stok->h_pokok;
             $terjual->total = $request->total[$key];
