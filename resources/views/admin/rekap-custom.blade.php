@@ -65,22 +65,26 @@
                 <tr>
                     <td rowspan="{{count($penjualan->penjualanStok()->get())}}">{{$penjualan->created_at}}</td>
                     <td>{{$ps[$i]->stok()->first()->nama_barang}}</td>
-                    <td>@php echo(($ps[$i]->grosir == 1) ? '<i class="fa fa-check-square"></i>' : '<i class="fa fa-times-circle"></i>'); @endphp</td>
+                    <td>@php echo(($ps[$i]->grosir == 1) ? 'YA' : 'TIDAK'); @endphp</td>
                     <td>{{$ps[$i]->jumlah}}</td>
                     <td>Rp {{number_format($ps[$i]->harga, 2, ',', '.')}}</td>
-                    <td align="right">Rp {{number_format($ps[$i]->jumlah * $ps[$i]->harga, 2, ',', '.')}}</td>
+                    <td style="text-align:right;">Rp {{number_format($ps[$i]->jumlah * $ps[$i]->harga, 2, ',', '.')}}</td>
                 </tr>
                         @else
                 <tr>
                     <td>{{$ps[$i]->stok()->first()->nama_barang}}</td>
-                    <td>@php echo(($ps[$i]->grosir == 1) ? '<i class="fa fa-check-square"></i>' : '<i class="fa fa-times-circle"></i>'); @endphp</td>
+                    <td>@php echo(($ps[$i]->grosir == 1) ? 'YA' : 'TIDAK'); @endphp</td>
                     <td>{{$ps[$i]->jumlah}}</td>
                     <td>Rp {{number_format($ps[$i]->harga, 2, ',', '.')}}</td>
-                    <td align="right">Rp {{number_format($ps[$i]->jumlah * $ps[$i]->harga, 2, ',', '.')}}</td>
+                    <td style="text-align:right;">Rp {{number_format($ps[$i]->jumlah * $ps[$i]->harga, 2, ',', '.')}}</td>
                 </tr>
                         @endif
                     @endfor
                 @endforeach
+                <tr>
+                    <td colspan="5" style="text-align:center;"><b>TOTAL</b></td>
+                    <td style="text-align:right;">Rp. {{$total_cash}}</td>
+                </tr>
             </tbody>
         </table>
     </div>

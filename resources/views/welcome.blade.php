@@ -306,7 +306,7 @@
         });
         $('#btn-selesai').click(function() {
             $( "#invisible-form").append('<input type="hidden" name="totalbelanja" value="'+totalbelanja+'">');
-		$( "#invisible-form").append('<input type="hidden" name="uang" value="'+ $('#uang').val() +'">');
+		    $( "#invisible-form").append('<input type="hidden" name="uang" value="'+ $('#uang').val() +'">');
             $( "#invisible-form").submit();
         });
     });
