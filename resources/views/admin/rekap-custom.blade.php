@@ -55,6 +55,7 @@
                     <th scope="col">Jumlah</th>
                     <th scope="col">Harga @</th>
                     <th scope="col">Total</th>
+                    <th scope="col">Nota</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,6 +70,7 @@
                     <td>{{$ps[$i]->jumlah}}</td>
                     <td>Rp {{number_format($ps[$i]->harga, 2, ',', '.')}}</td>
                     <td style="text-align:right;">Rp {{number_format($ps[$i]->jumlah * $ps[$i]->harga, 2, ',', '.')}}</td>
+                    <td rowspan="{{count($penjualan->penjualanStok()->get())}}"><i style="font-size:30px;" class="fa fa-print" onclick="printUlang({{$penjualan->id}})"></i></td>
                 </tr>
                         @else
                 <tr>
@@ -127,5 +129,10 @@
             $('#div-detail-trx').css('display', 'block');
         });
     });
+    function printUlang(id) {
+        $.get('/api/print-ulang/' + id, function(data) {
+            alert("Nota transaksi TX"+id+" dicetak ulang.");
+        });
+    }
 </script>
 @endsection
